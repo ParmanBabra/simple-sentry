@@ -24,7 +24,7 @@ services:
     ports:
      - 9000:9000
     environment:
-      SENTRY_SECRET_KEY: '!!!SECRET!!!'
+      SENTRY_SECRET_KEY: 'w-2kes)85pgo&)i58d9zaf4i-463ji9fwpdhx4w!jbw!60hsd0'
       SENTRY_POSTGRES_HOST: postgres
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
@@ -37,7 +37,7 @@ services:
      - postgres
     command: "sentry run cron"
     environment:
-      SENTRY_SECRET_KEY: '!!!SECRET!!!'
+      SENTRY_SECRET_KEY: 'w-2kes)85pgo&)i58d9zaf4i-463ji9fwpdhx4w!jbw!60hsd0'
       SENTRY_POSTGRES_HOST: postgres
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
@@ -50,7 +50,7 @@ services:
      - postgres
     command: "sentry run worker"
     environment:
-      SENTRY_SECRET_KEY: '!!!SECRET!!!'
+      SENTRY_SECRET_KEY: 'w-2kes)85pgo&)i58d9zaf4i-463ji9fwpdhx4w!jbw!60hsd0'
       SENTRY_POSTGRES_HOST: postgres
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
