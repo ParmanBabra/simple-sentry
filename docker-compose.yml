@@ -55,3 +55,7 @@ services:
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
       SENTRY_REDIS_HOST: redis
+  nginx:
+    image: parmanbabra/sentry-nginx
+    ports:
+      - 80:80
