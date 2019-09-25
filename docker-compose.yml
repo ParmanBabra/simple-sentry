@@ -29,6 +29,9 @@ services:
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
       SENTRY_REDIS_HOST: redis
+    depends_on:
+      - redis
+      - postgres
 
   cron:
     image: sentry
@@ -42,6 +45,9 @@ services:
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
       SENTRY_REDIS_HOST: redis
+    depends_on:
+      - redis
+      - postgres
 
   worker:
     image: sentry
@@ -55,6 +61,10 @@ services:
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
       SENTRY_REDIS_HOST: redis
+    depends_on:
+      - redis
+      - postgres
+
   nginx:
     image: parmanbabra/sentry-nginx
     ports:
