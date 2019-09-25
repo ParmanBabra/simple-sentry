@@ -59,3 +59,5 @@ services:
     image: parmanbabra/sentry-nginx
     ports:
       - 80:80
+    depends_on:
+      - sentry
