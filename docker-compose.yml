@@ -1,7 +1,13 @@
-version: '2'
+version: '3.7'
 
 volumes:
    pgdb:
+   
+secrets:
+  ps_password:
+    file: ./ps_password.txt
+  secret_key:
+    external: ./secret_key.txt
 
 services:
   redis:
@@ -11,10 +17,13 @@ services:
     image: postgres
     environment:
       POSTGRES_USER: sentry
-      POSTGRES_PASSWORD: sentry
+      POSTGRES_PASSWORD: /run/secrets/ps_password
       POSTGRES_DB: sentry
     volumes:
      - pgdb:/var/lib/postgresql/data
+    secrets:
+     - ps_password
+     - secret_key
 
   sentry:
     image: sentry
@@ -24,14 +33,17 @@ services:
     ports:
      - 9000:9000
     environment:
-      SENTRY_SECRET_KEY: 'w-2kes)85pgo&)i58d9zaf4i-463ji9fwpdhx4w!jbw!60hsd0'
+      SENTRY_SECRET_KEY: /run/secrets/secret_key
       SENTRY_POSTGRES_HOST: postgres
       SENTRY_DB_USER: sentry
-      SENTRY_DB_PASSWORD: sentry
+      SENTRY_DB_PASSWORD: /run/secrets/ps_password
       SENTRY_REDIS_HOST: redis
     depends_on:
       - redis
       - postgres
+    secrets:
+     - ps_password
+     - secret_key
 
   cron:
     image: sentry
@@ -40,14 +52,17 @@ services:
      - postgres
     command: "sentry run cron"
     environment:
-      SENTRY_SECRET_KEY: 'w-2kes)85pgo&)i58d9zaf4i-463ji9fwpdhx4w!jbw!60hsd0'
+      SENTRY_SECRET_KEY: /run/secrets/secret_key
       SENTRY_POSTGRES_HOST: postgres
       SENTRY_DB_USER: sentry
-      SENTRY_DB_PASSWORD: sentry
+      SENTRY_DB_PASSWORD: /run/secrets/ps_password
       SENTRY_REDIS_HOST: redis
     depends_on:
       - redis
       - postgres
+    secrets:
+     - ps_password
+     - secret_key
 
   worker:
     image: sentry
@@ -56,14 +71,17 @@ services:
      - postgres
     command: "sentry run worker"
     environment:
-      SENTRY_SECRET_KEY: 'w-2kes)85pgo&)i58d9zaf4i-463ji9fwpdhx4w!jbw!60hsd0'
+      SENTRY_SECRET_KEY: /run/secrets/secret_key
       SENTRY_POSTGRES_HOST: postgres
       SENTRY_DB_USER: sentry
-      SENTRY_DB_PASSWORD: sentry
+      SENTRY_DB_PASSWORD: /run/secrets/ps_password
       SENTRY_REDIS_HOST: redis
     depends_on:
       - redis
       - postgres
+    secrets:
+     - ps_password
+     - secret_key
 
   nginx:
     image: parmanbabra/sentry-nginx
