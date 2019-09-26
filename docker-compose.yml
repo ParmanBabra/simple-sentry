@@ -7,7 +7,7 @@ secrets:
   ps_password:
     file: ./ps_password.txt
   secret_key:
-    external: ./secret_key.txt
+    file: ./secret_key.txt
 
 services:
   redis:
