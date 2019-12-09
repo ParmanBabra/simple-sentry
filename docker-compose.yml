@@ -12,9 +12,11 @@ secrets:
 services:
   redis:
     image: redis
+    restart: always
 
   postgres:
     image: postgres
+    restart: always
     environment:
       POSTGRES_USER: sentry
       POSTGRES_PASSWORD: /run/secrets/ps_password
@@ -27,6 +29,7 @@ services:
 
   sentry:
     image: sentry
+    restart: always
     links:
      - redis
      - postgres
@@ -47,6 +50,7 @@ services:
 
   cron:
     image: sentry
+    restart: always
     links:
      - redis
      - postgres
@@ -66,6 +70,7 @@ services:
 
   worker:
     image: sentry
+    restart: always
     links:
      - redis
      - postgres
